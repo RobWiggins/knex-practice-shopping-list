@@ -1,8 +1,10 @@
 'use strict';
 
 const ShoppingService = {
+
   getItems(knex) {
-    
+    return knex('shopping_test')
+      .select('*');
   },
 
   getItemById(knex, id) {

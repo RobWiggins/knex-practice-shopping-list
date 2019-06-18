@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node ./src/drills.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
     "dotenv": "^8.0.0",
     "knex": "^0.17.6",
-    "pg": "^7.11.0"
+    "mocha": "^6.1.4",
+    "pg": "^7.11.0",
+    "supertest": "^4.0.2"
   }
 }
