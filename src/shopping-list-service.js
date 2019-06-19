@@ -3,12 +3,15 @@
 const ShoppingService = {
 
   getItems(knex) {
-    return knex('shopping_test')
+    return knex('shopping_list')
       .select('*');
   },
 
-  getItemById(knex, id) {
-    
+  getItemById(knex, item_id) {
+    return knex('shopping_list')
+      .select('*')
+      .where('id', item_id)
+      .first();
   },
 
   insertItem(knex, newItem) {

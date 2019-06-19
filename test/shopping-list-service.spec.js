@@ -28,7 +28,7 @@ describe('Testing ShoppingService Object', () => {
   describe('Testing getItems() from ShoppingService ', () => {
 
     before(() => {
-      return db('shopping_test')
+      return db('shopping_list')
         .insert(testingData);
     });
 
@@ -61,11 +61,40 @@ describe('Testing ShoppingService Object', () => {
     //     });
     // });
 
-    after(() => db('shopping_test').truncate());
+    after(() => db('shopping_list').truncate());
   });
 
+  describe('table has no items if none inserted', () => {
+  // testing outside of general getItems() describe block
+    it('should return an empty array if no items', () => {
+    // db('shopping_test').truncate();
+      return ShoppingService.getItems(db)
+        .then( result => {
+        // console.log(result);
+          expect(result.length).to.equal(0);
+        });
+    });
+  });
 
+  describe('testing getItemById()', () => {
+    
+    before( () => db('shopping_list').insert(testingData));
 
+    // need to do first() on the getItemById!! otherwise returns array of 1 obj
+    it('retrieves the correct element by its numbered ID', () => {
+      return ShoppingService.getItemById(db, 2)
+        .then(result => {
+          // console.log(result);
+          expect(result.id).to.equal(2);
+        });
+    });
+
+    after(() => db('shopping_list').truncate());
+  });
+
+  
+
+  
   after(() => db.destroy());
 
 });
