@@ -15,11 +15,14 @@ const ShoppingService = {
   },
 
   insertItem(knex, newItem) {
-
+    return knex('shopping_list')
+      .insert(newItem)
+      .returning('*')
+      .then(rows => rows[0]);
   },
 
   updateItem(knex, id, newItemFields) {
-
+    
   },
 
   deleteItem(knex, id) {

@@ -92,7 +92,37 @@ describe('Testing ShoppingService Object', () => {
     after(() => db('shopping_list').truncate());
   });
 
-  
+  describe('testing insertItem', () => {
+
+    const newItem = { item_name: 'item4', summary: 'summary4' };
+
+    before( () => db('shopping_list').insert(testingData));
+
+    it('inserts an item and returns the item and resolves the new item with an id', () => {
+      return ShoppingService.insertItem(db, newItem)
+        .then( result => {
+          console.log(result);
+          expect(result.id).to.equal(4);
+        });
+    });
+
+    after(() => db('shopping_list').truncate());
+
+  });
+
+
+  describe('testing updateItem()', () => {
+
+    before( () => db('shopping_list').insert(testingData));
+
+    it('updates the first item with a new item_name', () => {
+      return ;
+    })
+
+    after(() => db('shopping_list').truncate());
+
+
+  })
 
   
   after(() => db.destroy());
