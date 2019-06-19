@@ -22,11 +22,15 @@ const ShoppingService = {
   },
 
   updateItem(knex, id, newItemFields) {
-    
+    return knex('shopping_list')
+      .where( { id } )
+      .update(newItemFields);
   },
 
   deleteItem(knex, id) {
-
+    return knex('shopping_list')
+      .where( { id } )
+      .delete();
   }
 };
 

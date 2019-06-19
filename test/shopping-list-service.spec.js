@@ -101,7 +101,7 @@ describe('Testing ShoppingService Object', () => {
     it('inserts an item and returns the item and resolves the new item with an id', () => {
       return ShoppingService.insertItem(db, newItem)
         .then( result => {
-          console.log(result);
+          // console.log(result);
           expect(result.id).to.equal(4);
         });
     });
@@ -113,18 +113,36 @@ describe('Testing ShoppingService Object', () => {
 
   describe('testing updateItem()', () => {
 
+    const updatedItem = { item_name: 'updatedName', summary: 'updatedSummary'};
+
     before( () => db('shopping_list').insert(testingData));
 
     it('updates the first item with a new item_name', () => {
-      return ;
-    })
+      return ShoppingService.updateItem(db, 1, updatedItem)
+        .then(() => ShoppingService.getItemById(db, 1))
+        .then(result => expect(result.summary).to.equal('updatedSummary'));
+    });
 
     after(() => db('shopping_list').truncate());
 
 
-  })
+  });
 
+
+  describe('testing deleteItem()', () => {
+
+    before( () => db('shopping_list').insert(testingData));    
+
+    it('deletes an item with the given id', () => {
+      return ShoppingService.deleteItem(db, 1)
+        .then(() => ShoppingService.getItems(db))
+        .then(result => expect(result.length).to.equal(2));
+    });
+
+    after(() => db('shopping_list').truncate());
+  });
   
   after(() => db.destroy());
+
 
 });
